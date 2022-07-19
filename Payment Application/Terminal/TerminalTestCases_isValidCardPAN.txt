@@ -1,0 +1,15 @@
+Test Case 1
+Input : 0883843610296134
+Expected Output : Valid Card
+-----------------------------------------------
+Test Case 2
+Input : 092866237779739000
+Expected Output : Valid Card
+-----------------------------------------------
+Test Case 3
+Input : a0883843610296134
+Expected Output : Valid Card
+-----------------------------------------------
+Test Case 4
+Input : 12345678901234567
+Expected Output : Invalid Card
