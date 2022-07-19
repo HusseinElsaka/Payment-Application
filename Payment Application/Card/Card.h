@@ -28,12 +28,22 @@ typedef enum EN_cardError_t
 	OK_CARD, WRONG_NAME, WRONG_EXP_DATE, WRONG_PAN
 }EN_cardError_t;
 
+typedef enum DateError
+{
+	OK_DATE, WRONG_MONTH, WRONG_DAY
+}DateError;
+
 /* ask for the cardholder's name and store it into card data and Validate it */
 EN_cardError_t getCardHolderName(ST_cardData_t* cardData);
 /* ask for the card expiry date and store it in card data and validate it */
 EN_cardError_t getCardExpiryDate(ST_cardData_t* cardData);
 /* ask for the card's Primary Account Number and store it in card data and validate it */
 EN_cardError_t getCardPAN(ST_cardData_t* cardData);
+/* Validate Month 1 -> 12 
+  Validate Day 1 -> 30 */
+DateError checkDay(int day);
+DateError checkMonth(int month);
+
 
 
 #endif
