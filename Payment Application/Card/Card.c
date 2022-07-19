@@ -63,7 +63,7 @@ EN_cardError_t getCardPAN(ST_cardData_t* cardData)
 	
 	for (i = 0; i < lengthPAN; i++)
 	{
-		if (!((cardData->primaryAccountNumber[i] >= 'A' && cardData->primaryAccountNumber[i] <= 'Z') || (cardData->primaryAccountNumber[i] >= 'a' && cardData->primaryAccountNumber[i] <= 'z') || (cardData->primaryAccountNumber[i] >= '0' && cardData->primaryAccountNumber[i] <= '9')))
+		if (!(cardData->primaryAccountNumber[i] >= '0' && cardData->primaryAccountNumber[i] <= '9'))
 		{
 			return WRONG_PAN;
 		}
