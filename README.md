@@ -1,3 +1,3 @@
 # Payment Application
 
-![alt text](https://github.com/[HusseinElsaka]/[Payment-Application]/blob/[master]/image.jpg?raw=true)
+![payment-flowchart](https://github.com/[HusseinElsaka]/[Payment-Application]/blob/[master]/payment-flowchart.jpeg?raw=true)
