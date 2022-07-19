@@ -5,7 +5,13 @@ EN_terminalError_t getTransactionDate(ST_terminalData_t* termData)
 {
 	printf("Enter Transaction Date : ");
 	gets(termData->transactionDate);
-	if (strlen(termData->transactionDate) != 10)
+	int month = ((int)termData->transactionDate[3] - '0') * 10 + ((int)termData->transactionDate[4] - '0');
+	int day = ((int)termData->transactionDate[0] - '0') * 10 + ((int)termData->transactionDate[1] - '0');
+	if (strlen(termData->transactionDate) != TRANSACTION_LEN)
+	{
+		return WRONG_DATE;
+	}
+	else if (checkDay(day) || checkMonth(month))
 	{
 		return WRONG_DATE;
 	}
@@ -63,7 +69,51 @@ EN_terminalError_t getTransactionAmount(ST_terminalData_t* termData)
 
 EN_terminalError_t isValidCardPAN(ST_cardData_t* cardData)
 {
-
+	int lengthPAN = strlen(cardData->primaryAccountNumber), i;
+	/* Check if there are all digits to apply luhn 
+	Luhn algorithms apply to digit
+	-- we assume if it had a letter it valid
+	-- if all digits we apply it check if it valid or not
+	*/ 
+	
+	for (i = 0; i < lengthPAN; i++)
+	{
+		if (cardData->primaryAccountNumber[i] <= '0' || cardData->primaryAccountNumber[i] >= '9')
+		{
+			return OK_TERMINAL;
+		}
+	}
+	/*Luhn Algorithm */
+	long digitPosition = 1, sum = 0, x = lengthPAN;
+	while (x > 0)
+	{
+		//check even numbers and double it if odd let it
+		if (digitPosition % 2 == 0)
+		{
+			// CHECK IF THE DOUBLE EVEN GREATER THAN 10 
+			int y = (2 * (x % 10));
+			if (y > 9)
+			{
+				sum += ((y % 10) + 1);
+			}
+			else
+			{
+				sum += (2 * (x % 10));
+			}
+			x /= 10;
+		}
+		else
+		{
+			sum += (x % 10);
+			x /= 10;
+		}
+		digitPosition++;
+	}
+	if (sum % 10 == 0)
+	{
+		return OK_TERMINAL;
+	}
+	return INVALID_CARD;
 }
 
 
