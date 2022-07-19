@@ -15,8 +15,8 @@ Input : 123456789012345678
 Expected Output : Vaild PAN
 -----------------------------------------------
 Test Case 5
-Input : 1234567890123ADFhg
-Expected Output : Vaild PAN
+Input : 1234567890123asd
+Expected Output : WRONG PAN
 -----------------------------------------------
 Test Case 6
 Input : 12345678#^123ADFhg
