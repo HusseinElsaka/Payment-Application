@@ -71,24 +71,12 @@ EN_terminalError_t getTransactionAmount(ST_terminalData_t* termData)
 
 EN_terminalError_t isValidCardPAN(ST_cardData_t* cardData)
 {
-	int lengthPAN = strlen(cardData->primaryAccountNumber), i;
-	/* Check if there are all digits to apply luhn 
-	Luhn algorithms apply to digit
-	-- we assume if it had a letter it valid
-	-- if all digits we apply it check if it valid or not
-	*/ 
-	for (i = 0; i < lengthPAN; i++)
-	{
-		if (cardData->primaryAccountNumber[i] < '0' || cardData->primaryAccountNumber[i] > '9')
-		{
-			return OK_TERMINAL;
-		}
-	}
+	uint8_t lengthPAN = strlen(cardData->primaryAccountNumber), i;
 	/* Convert to Interger numbers */
 	long long int PAN = 0;
 	for (i = 0; i < lengthPAN; i++)
 	{
-		PAN += (cardData->primaryAccountNumber[i] - '0') * (long long)pow(10.0, lengthPAN - i - 1);
+		PAN += (long long)(cardData->primaryAccountNumber[i] - '0') * (long long)pow(10.0, lengthPAN - i - 1);
 	}
 	/*Luhn Algorithm */
 	long digitPosition = 1, sum = 0;

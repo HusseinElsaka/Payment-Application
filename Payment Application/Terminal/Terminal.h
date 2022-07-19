@@ -8,7 +8,6 @@
 
 #define TRANSACTION_LEN 10
 
-typedef unsigned char uint8_t;
 
 typedef struct ST_terminalData_t
 {
