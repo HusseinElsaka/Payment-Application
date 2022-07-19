@@ -5,13 +5,20 @@ EN_terminalError_t getTransactionDate(ST_terminalData_t* termData)
 {
 	printf("Enter Transaction Date : ");
 	gets(termData->transactionDate);
+<<<<<<< Updated upstream
 	int month = ((int)termData->transactionDate[3] - '0') * 10 + ((int)termData->transactionDate[4] - '0');
 	int day = ((int)termData->transactionDate[0] - '0') * 10 + ((int)termData->transactionDate[1] - '0');
+=======
+>>>>>>> Stashed changes
 	if (strlen(termData->transactionDate) != TRANSACTION_LEN)
 	{
 		return WRONG_DATE;
 	}
+<<<<<<< Updated upstream
 	else if (checkDay(day) || checkMonth(month))
+=======
+	else if (checkDay(day) != '/' && termData->transactionDate[5] != '/')
+>>>>>>> Stashed changes
 	{
 		return WRONG_DATE;
 	}
