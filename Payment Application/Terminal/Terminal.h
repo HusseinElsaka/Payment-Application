@@ -4,6 +4,7 @@
 #define TERMINAL_H
 
 #include "../Card/Card.h"
+#include <math.h>
 
 #define TRANSACTION_LEN 10
 
