@@ -1,5 +1,9 @@
-#include "Card/Card.h"
-#include "Terminal/Terminal.h"
+
+#include "Server/Server.h"
+
+/* Using this website https://www.dcode.fr/luhn-algorithm to generate Luhn Numbers */
+
+
 
 int main()
 {
@@ -15,13 +19,15 @@ int main()
 	}
 	printf("Vaild Card Data \n");
 	return 0;*/
+
 	/*Terminal Data Test 
-	if (getTransactionDate(PTR_TestTerminal) ||isCardExpired(TestCard, TestTerminal) ||setMaxAmount(PTR_TestTerminal) ||  getTransactionAmount(PTR_TestTerminal) || isBelowMaxAmount(PTR_TestTerminal) ||  isValidCardPAN(PTR_TestCard))
+	if (getTransactionDate(PTR_TestTerminal) || ||setMaxAmount(PTR_TestTerminal) ||  getTransactionAmount(PTR_TestTerminal) || isBelowMaxAmount(PTR_TestTerminal) ||  isValidCardPAN(PTR_TestCard))
 	{
 		printf("Wrong in  Terminal\n");
 			return 1;
 	}
 	*/
+	
 	printf("Valid Card");
 	
 	return 0;
