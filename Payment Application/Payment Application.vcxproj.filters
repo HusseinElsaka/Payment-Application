@@ -49,5 +49,10 @@
     <Text Include="Card\CardTestCases_HolderNameFunction.txt" />
     <Text Include="Card\CardTestCases_CardExpiryDateFuntion.txt" />
     <Text Include="Card\CardTestCases_CardPANFunction.txt" />
+    <Text Include="Terminal\TerminalTestCases_isCardExpired.txt" />
+    <Text Include="Terminal\TerminalTestCases_getTransactionAmount.txt" />
+    <Text Include="Terminal\TerminalTestCases_SetMaxAmount.txt" />
+    <Text Include="Terminal\TerminalTestCases_isBelowMaxAmount.txt" />
+    <Text Include="Terminal\TerminalTestCases_isValidCardPAN.txt" />
   </ItemGroup>
 </Project>
