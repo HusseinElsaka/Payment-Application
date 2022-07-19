@@ -1,0 +1,15 @@
+Test Case 1
+Input : 1234567890123456
+Expected Output : Vaild PAN
+-----------------------------------------------
+Test Case 2
+Input : 123456789012345
+Expected Output : WRONG PAN
+-----------------------------------------------
+Test Case 3
+Input : 12345678901234567890
+Expected Output : WRONG PAN
+-----------------------------------------------
+Test Case 4
+Input : 123456789012345678
+Expected Output : Vaild PAN
