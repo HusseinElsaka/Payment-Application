@@ -1,2 +1,20 @@
-﻿  main.c
-  Payment Application.vcxproj -> E:\self\FWD\Payment Application\x64\Debug\Payment Application.exe
+﻿  Server.c
+E:\self\FWD\Payment Application\Payment Application\Server\Server.c(6,1): warning C4305: 'initializing': truncation from 'double' to 'float'
+E:\self\FWD\Payment Application\Payment Application\Server\Server.c(7,1): warning C4305: 'initializing': truncation from 'double' to 'float'
+E:\self\FWD\Payment Application\Payment Application\Server\Server.c(8,1): warning C4305: 'initializing': truncation from 'double' to 'float'
+E:\self\FWD\Payment Application\Payment Application\Server\Server.c(9,1): warning C4305: 'initializing': truncation from 'double' to 'float'
+E:\self\FWD\Payment Application\Payment Application\Server\Server.c(10,1): warning C4305: 'initializing': truncation from 'double' to 'float'
+E:\self\FWD\Payment Application\Payment Application\Server\Server.c(11,1): warning C4305: 'initializing': truncation from 'double' to 'float'
+E:\self\FWD\Payment Application\Payment Application\Server\Server.c(12,1): warning C4305: 'initializing': truncation from 'double' to 'float'
+E:\self\FWD\Payment Application\Payment Application\Server\Server.c(13,1): warning C4305: 'initializing': truncation from 'double' to 'float'
+E:\self\FWD\Payment Application\Payment Application\Server\Server.c(15,1): warning C4305: 'initializing': truncation from 'double' to 'float'
+E:\self\FWD\Payment Application\Payment Application\Server\Server.c(16,1): warning C4305: 'initializing': truncation from 'double' to 'float'
+E:\self\FWD\Payment Application\Payment Application\Server\Server.c(17,1): warning C4305: 'initializing': truncation from 'double' to 'float'
+E:\self\FWD\Payment Application\Payment Application\Server\Server.c(18,1): warning C4305: 'initializing': truncation from 'double' to 'float'
+E:\self\FWD\Payment Application\Payment Application\Server\Server.c(19,1): warning C4305: 'initializing': truncation from 'double' to 'float'
+E:\self\FWD\Payment Application\Payment Application\Server\Server.c(20,1): warning C4305: 'initializing': truncation from 'double' to 'float'
+E:\self\FWD\Payment Application\Payment Application\Server\Server.c(21,1): warning C4305: 'initializing': truncation from 'double' to 'float'
+E:\self\FWD\Payment Application\Payment Application\Server\Server.c(22,1): warning C4305: 'initializing': truncation from 'double' to 'float'
+E:\self\FWD\Payment Application\Payment Application\Server\Server.c(68,25): error C2065: 'cardData': undeclared identifier
+E:\self\FWD\Payment Application\Payment Application\Server\Server.c(68,25): error C2440: 'function': cannot convert from 'int' to 'ST_cardData_t'
+E:\self\FWD\Payment Application\Payment Application\Server\Server.c(68,17): warning C4024: 'isCardExpired': different types for formal and actual parameter 1
