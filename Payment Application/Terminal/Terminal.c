@@ -53,7 +53,7 @@ EN_terminalError_t isCardExpired(ST_cardData_t cardData, ST_terminalData_t termD
 EN_terminalError_t getTransactionAmount(ST_terminalData_t* termData)
 {
 	printf("Enter transaction amount : \n");
-	scanf_s("%f", termData->transAmount);
+	scanf_s("%f", &termData->transAmount);
 	if (termData->transAmount <= 0)
 	{
 		return INVALID_AMOUNT;
@@ -71,11 +71,21 @@ EN_terminalError_t isValidCardPAN(ST_cardData_t* cardData)
 
 EN_terminalError_t isBelowMaxAmount(ST_terminalData_t* termData)
 {
-
+	if (termData->transAmount > termData->maxTransAmount)
+	{
+		return EXCEED_MAX_AMOUNT;
+	}
+	return OK_TERMINAL;
 }
 
 
 EN_terminalError_t setMaxAmount(ST_terminalData_t* termData)
 {
-
+	printf("Enter MAX amount : \n");
+	scanf_s("%f", &termData->maxTransAmount);
+	if (termData->maxTransAmount <= 0)
+	{
+		return INVALID_MAX_AMOUNT;
+	}
+	return OK_TERMINAL;
 }
