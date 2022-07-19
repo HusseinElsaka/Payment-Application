@@ -37,9 +37,18 @@ EN_cardError_t getCardPAN(ST_cardData_t* cardData)
 {
 	printf("Enter Primary Account Number : \n");
 	gets(cardData->primaryAccountNumber);
-	if ((strlen(cardData->primaryAccountNumber) > CARD_MAX) || (strlen(cardData->primaryAccountNumber) < CARD_MIN))
+	int lengthPAN = strlen(cardData->primaryAccountNumber), i;
+	if ((lengthPAN > CARD_MAX) || (lengthPAN < CARD_MIN))
 	{
 		return WRONG_PAN;
+	}
+	
+	for (i = 0; i < lengthPAN; i++)
+	{
+		if (!((cardData->primaryAccountNumber[i] >= 'A' && cardData->primaryAccountNumber[i] <= 'Z') || (cardData->primaryAccountNumber[i] >= 'a' && cardData->primaryAccountNumber[i] <= 'z') || (cardData->primaryAccountNumber[i] >= '0' && cardData->primaryAccountNumber[i] <= '9')))
+		{
+			return WRONG_PAN;
+		}
 	}
 	return OK_CARD;
 
