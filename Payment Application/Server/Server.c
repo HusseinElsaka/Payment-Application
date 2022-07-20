@@ -27,10 +27,16 @@ extern ST_accountsDB_t serverDatabase[MAX_SERVER] = {
 
 extern ST_transaction_t transactionDatabase[MAX_TRANSACTION] = { 0 };
 
+/* cardTemp use as a buffer to transfer data */
 ST_cardData_t cardTemp;
-uint8_t sequenceNumber, accountOffset = 0;
+int sequenceNumber, accountOffset = 0;
 
-uint8_t searchAccount(ST_cardData_t* cardData)
+
+/* This fanction use to search about the account 
+using string compare if it return 0 that mean there is same
+so the function return the INDEX of the account in the database array */
+
+int searchAccount(ST_cardData_t* cardData)
 {
 	for (int i = 0; i < MAX_SERVER; i++)
 	{
@@ -71,6 +77,8 @@ EN_transState_t recieveTransactionData(ST_transaction_t* transData)
 		return APPROVED;
 	}
 }
+
+
 EN_serverError_t isValidAccount(ST_cardData_t* cardData)
 {
 	cardTemp = *cardData;
@@ -85,6 +93,7 @@ EN_serverError_t isValidAccount(ST_cardData_t* cardData)
 		return OK;
 	}
 }
+
 EN_serverError_t isAmountAvailable(ST_terminalData_t* termData)
 {
 		if (serverDatabase[accountOffset].balance < termData->transAmount)
@@ -94,6 +103,8 @@ EN_serverError_t isAmountAvailable(ST_terminalData_t* termData)
 		}
 		return OK;
 }
+
+
 EN_serverError_t saveTransaction(ST_transaction_t* transData)
 {
 	if (sequenceNumber < 255)
@@ -108,6 +119,8 @@ EN_serverError_t saveTransaction(ST_transaction_t* transData)
 	return SAVING_FAILED;
 
 }
+
+
 EN_serverError_t getTransaction(uint32_t transactionSequenceNumber, ST_transaction_t* transData)
 {
 	for (uint8_t i = 0; i < sequenceNumber; i++)
