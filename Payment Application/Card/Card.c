@@ -21,6 +21,7 @@ DateError checkMonth(int month)
 	return OK_DATE;
 }
 
+
 EN_cardError_t getCardHolderName(ST_cardData_t* cardData)
 {
 	printf("Enter the CardHolder's name : ");
@@ -61,7 +62,7 @@ EN_cardError_t getCardPAN(ST_cardData_t* cardData)
 {
 	printf("Enter Primary Account Number : ");
 	gets(cardData->primaryAccountNumber);
-	int lengthPAN = strlen(cardData->primaryAccountNumber), i;
+	uint8_t lengthPAN = strlen(cardData->primaryAccountNumber), i;
 	if ((lengthPAN > CARD_MAX) || (lengthPAN < CARD_MIN))
 	{
 		printf("WRONG PAN \n");
