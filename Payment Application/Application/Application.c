@@ -21,16 +21,18 @@ void appStart(void)
 		return;
 	while (setMaxAmount(terminalData));
 	while (getTransactionAmount(terminalData));
-	if (!isBelowMaxAmount)
+	if (isBelowMaxAmount(terminalData))
 		return;
 
 	/* Server Side */
 	if(recieveTransactionData(&transactionData))
 		return;
 
+
 	ST_transaction_t TestGetTransaction;
 	getTransaction(0, &TestGetTransaction);
 	printf("\n%s\n", TestGetTransaction.cardHolderData.primaryAccountNumber);
-	printf("%s\n", TestGetTransaction.cardHolderData.cardHolderName);
+	printf("%s\n\n", TestGetTransaction.cardHolderData.cardHolderName);
+
 	return;
 }
