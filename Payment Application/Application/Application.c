@@ -28,6 +28,9 @@ void appStart(void)
 	if(recieveTransactionData(&transactionData))
 		return;
 
-	getTransaction(0, &transactionData);
+	ST_transaction_t TestGetTransaction;
+	getTransaction(0, &TestGetTransaction);
+	printf("\n%s\n", TestGetTransaction.cardHolderData.primaryAccountNumber);
+	printf("%s\n", TestGetTransaction.cardHolderData.cardHolderName);
 	return;
 }
