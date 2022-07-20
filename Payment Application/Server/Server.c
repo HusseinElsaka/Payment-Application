@@ -25,9 +25,10 @@ extern ST_accountsDB_t serverDatabase[MAX_SERVER] = {
 
 extern ST_transaction_t transactionDatabase[MAX_TRANSACTION] = { 0 };
 
+ST_cardData_t cardTemp;
+uint8_t sequenceNumber, accountOffset = 0;
 
-
-int searchAccount(ST_cardData_t* cardData)
+uint8_t searchAccount(ST_cardData_t* cardData)
 {
 	for (int i = 0; i < MAX_SERVER; i++)
 	{
@@ -42,17 +43,31 @@ int searchAccount(ST_cardData_t* cardData)
 
 EN_transState_t recieveTransactionData(ST_transaction_t* transData)
 {
-	
-	
-
-
+	if (isValidAccount(&(transData->cardHolderData)))
+	{
+		return DECLINED_STOLEN_CARD;
+	}
+	else if (isAmountAvailable(&(transData->terminalData)))
+	{
+		return DECLINED_INSUFFECIENT_FUND;
+	}
+	else if (saveTransaction(transData))
+	{
+		return INTERNAL_SERVER_ERROR;
+	}
+	else
+	{
+		serverDatabase[accountOffset].balance = serverDatabase[accountOffset].balance - transData->terminalData.transAmount;
+		return APPROVED;
+	}
 }
 EN_serverError_t isValidAccount(ST_cardData_t* cardData)
 {
+	cardTemp = *cardData;
 	if (!(getCardHolderName(cardData) || getCardExpiryDate(cardData) || getCardPAN(cardData) || isValidCardPAN(cardData)))
 	{
-		int temp = searchAccount(cardData);
-		if (temp == -1)
+		accountOffset = searchAccount(cardData);
+		if (accountOffset == -1)
 		{
 			return DECLINED_STOLEN_CARD;
 		}
@@ -65,17 +80,34 @@ EN_serverError_t isValidAccount(ST_cardData_t* cardData)
 }
 EN_serverError_t isAmountAvailable(ST_terminalData_t* termData)
 {
-	getTransactionDate(termData);
-	getTransactionAmount(termData);
-	isCardExpired( cardData, *termData);
-	
-	isBelowMaxAmount(termData);
+	if (getTransactionDate(termData) || getTransactionAmount(termData) || isCardExpired(cardTemp, *termData) || isBelowMaxAmount(termData))
+	{
+		if (serverDatabase[accountOffset].balance < termData->transAmount)
+		{
+			return LOW_BALANCE;
+		}
+		return OK;
+
+	}
 }
 EN_serverError_t saveTransaction(ST_transaction_t* transData)
 {
+	transactionDatabase[sequenceNumber] = *transData;
+	transactionDatabase[sequenceNumber].transactionSequenceNumber = sequenceNumber;
+	sequenceNumber++;
+	transactionDatabase[sequenceNumber].transState = APPROVED;
 
 }
 EN_serverError_t getTransaction(uint32_t transactionSequenceNumber, ST_transaction_t* transData)
 {
-
+	for (uint8_t i = 0; i < 255; i++)
+	{
+		if (transactionDatabase[i].transactionSequenceNumber == transactionSequenceNumber)
+		{
+			*transData = transactionDatabase[i];
+			return OK;
+		}
+			
+	}
+	return TRANSACTION_NOT_FOUND;
 }
