@@ -1,5 +1,7 @@
 #include "Server.h"
 
+
+/* Using this website https://www.dcode.fr/luhn-algorithm to generate Luhn Numbers */
 extern ST_accountsDB_t serverDatabase[MAX_SERVER] = {
 	{5000.0, "607833656635906773"},
 	{4000.5, "005768153188661175"},
@@ -45,69 +47,78 @@ EN_transState_t recieveTransactionData(ST_transaction_t* transData)
 {
 	if (isValidAccount(&(transData->cardHolderData)))
 	{
+		printf("DECLINED STOLEN CARD \n");
+		transactionDatabase[sequenceNumber].transState = DECLINED_STOLEN_CARD;
 		return DECLINED_STOLEN_CARD;
 	}
 	else if (isAmountAvailable(&(transData->terminalData)))
 	{
+		printf("DECLINED INSUFFECIENT FUND \n");
+		transactionDatabase[sequenceNumber].transState = DECLINED_INSUFFECIENT_FUND;
 		return DECLINED_INSUFFECIENT_FUND;
 	}
 	else if (saveTransaction(transData))
 	{
+		printf("INTERNAL SERVER ERROR \n");
+		transactionDatabase[sequenceNumber].transState = INTERNAL_SERVER_ERROR;
 		return INTERNAL_SERVER_ERROR;
 	}
 	else
 	{
-		serverDatabase[accountOffset].balance = serverDatabase[accountOffset].balance - transData->terminalData.transAmount;
+		serverDatabase[accountOffset].balance -= transData->terminalData.transAmount;
+		printf("New Balance in Account : %f \n", serverDatabase[accountOffset].balance);
+		transactionDatabase[sequenceNumber].transState = APPROVED;
 		return APPROVED;
 	}
 }
 EN_serverError_t isValidAccount(ST_cardData_t* cardData)
 {
 	cardTemp = *cardData;
-	if (!(getCardHolderName(cardData) || getCardExpiryDate(cardData) || getCardPAN(cardData) || isValidCardPAN(cardData)))
+	accountOffset = searchAccount(cardData);
+	if (accountOffset == -1)
 	{
-		accountOffset = searchAccount(cardData);
-		if (accountOffset == -1)
-		{
-			return DECLINED_STOLEN_CARD;
-		}
-		else
-		{
-			return OK;
-		}
+		printf("DECLINED STOLEN CARD \n");
+		return DECLINED_STOLEN_CARD;
 	}
-	return DECLINED_STOLEN_CARD;
+	else
+	{
+		return OK;
+	}
 }
 EN_serverError_t isAmountAvailable(ST_terminalData_t* termData)
 {
-	if (getTransactionDate(termData) || getTransactionAmount(termData) || isCardExpired(cardTemp, *termData) || isBelowMaxAmount(termData))
-	{
 		if (serverDatabase[accountOffset].balance < termData->transAmount)
 		{
+			printf("LOW BALANCE \n");
 			return LOW_BALANCE;
 		}
 		return OK;
-
-	}
 }
 EN_serverError_t saveTransaction(ST_transaction_t* transData)
 {
-	transactionDatabase[sequenceNumber] = *transData;
-	transactionDatabase[sequenceNumber].transactionSequenceNumber = sequenceNumber;
-	sequenceNumber++;
-	transactionDatabase[sequenceNumber].transState = APPROVED;
+	if (sequenceNumber < 255)
+	{
+		transactionDatabase[sequenceNumber] = *transData;
+		transactionDatabase[sequenceNumber].transactionSequenceNumber = sequenceNumber;
+		transactionDatabase[sequenceNumber].transState = APPROVED;
+		sequenceNumber++;
+		return OK;
+	}
+	printf("SAVING FAILED \n");
+	return SAVING_FAILED;
 
 }
 EN_serverError_t getTransaction(uint32_t transactionSequenceNumber, ST_transaction_t* transData)
 {
-	for (uint8_t i = 0; i < 255; i++)
+	for (uint8_t i = 0; i < sequenceNumber; i++)
 	{
 		if (transactionDatabase[i].transactionSequenceNumber == transactionSequenceNumber)
 		{
 			*transData = transactionDatabase[i];
 			return OK;
 		}
-			
+
 	}
+	printf("TRANSACTION NOT FOUND \n");
 	return TRANSACTION_NOT_FOUND;
 }
