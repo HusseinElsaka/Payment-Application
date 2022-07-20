@@ -15,6 +15,6 @@ E:\self\FWD\Payment Application\Payment Application\Server\Server.c(19,1): warni
 E:\self\FWD\Payment Application\Payment Application\Server\Server.c(20,1): warning C4305: 'initializing': truncation from 'double' to 'float'
 E:\self\FWD\Payment Application\Payment Application\Server\Server.c(21,1): warning C4305: 'initializing': truncation from 'double' to 'float'
 E:\self\FWD\Payment Application\Payment Application\Server\Server.c(22,1): warning C4305: 'initializing': truncation from 'double' to 'float'
-E:\self\FWD\Payment Application\Payment Application\Server\Server.c(68,25): error C2065: 'cardData': undeclared identifier
-E:\self\FWD\Payment Application\Payment Application\Server\Server.c(68,25): error C2440: 'function': cannot convert from 'int' to 'ST_cardData_t'
-E:\self\FWD\Payment Application\Payment Application\Server\Server.c(68,17): warning C4024: 'isCardExpired': different types for formal and actual parameter 1
+E:\self\FWD\Payment Application\Payment Application\Server\Server.c(92): warning C4715: 'isAmountAvailable': not all control paths return a value
+E:\self\FWD\Payment Application\Payment Application\Server\Server.c(100): warning C4716: 'saveTransaction': must return a value
+  Payment Application.vcxproj -> E:\self\FWD\Payment Application\x64\Debug\Payment Application.exe
