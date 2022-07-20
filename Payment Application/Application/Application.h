@@ -5,6 +5,7 @@
 
 #include "../Server/Server.h"
 
+/*  This is full application */
 void appStart(void);
 
 #endif
