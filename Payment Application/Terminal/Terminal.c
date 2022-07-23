@@ -4,7 +4,8 @@
 EN_terminalError_t getTransactionDate(ST_terminalData_t* termData)
 {
 	printf("Enter Transaction Date : ");
-	gets(termData->transactionDate);
+	fgets(termData->transactionDate,11,stdin);
+	termData->transactionDate[strcspn(termData->transactionDate, "\n")] = 0;
 	int month = ((int)termData->transactionDate[3] - '0') * 10 + ((int)termData->transactionDate[4] - '0');
 	int day = ((int)termData->transactionDate[0] - '0') * 10 + ((int)termData->transactionDate[1] - '0');
 	if (strlen(termData->transactionDate) != TRANSACTION_LEN)
